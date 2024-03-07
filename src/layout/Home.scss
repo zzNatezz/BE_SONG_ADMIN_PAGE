@@ -1,0 +1,14 @@
+.home-container{
+    margin: auto;
+    width: 1080px;
+    .home-body{
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        .home-section{
+            width: 680px;
+            margin: auto;
+        }
+    }
+
+}
