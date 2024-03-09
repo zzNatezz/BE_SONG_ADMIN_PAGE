@@ -1,5 +1,5 @@
 import allSong from "../assets/songs/song";
-import image from "../icon/png/image";
+import image from "../assets/png/image";
 
 const SongDB = [
     {

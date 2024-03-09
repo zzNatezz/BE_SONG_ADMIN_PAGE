@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 
 function SideBar() {
   return (
-    <div className= "sidebar-container">
+    <div className="sidebar-container">
       <h2> General </h2>
-      <div className="sidebar-home"><Link to= 'home' >Home</Link></div>
-      <div>Notification</div>
+      <div className="sidebar-home">
+        <Link to="home">Home</Link>
+      </div>
+      <div className="sidebar-notice">
+        <Link to="/notice">Notice</Link>
+      </div>
     </div>
   );
 }
