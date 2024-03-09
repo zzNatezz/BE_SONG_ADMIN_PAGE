@@ -4,10 +4,10 @@ import SongDB from "../../../../localStorage/SongDB";
 import { AppContext } from "../../../../Context/Context";
 
 function Notice() {
-  const {isPending} = useContext(AppContext)
+  const {isPending, listPendingSong} = useContext(AppContext)
   return (
     <div className="notice-main-container">
-      {SongDB.map((item, index) => (
+      {listPendingSong.map((item, index) => (
         <div className="notice-container" key={index}>
           <div className="notice-content">
             <h2 className="notice-title">Song Name : {item.title}</h2>
