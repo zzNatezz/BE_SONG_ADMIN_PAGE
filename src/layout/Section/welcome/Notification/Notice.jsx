@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Notice.scss";
 import SongDB from "../../../../localStorage/SongDB";
+import { AppContext } from "../../../../Context/Context";
 
 function Notice() {
+  const {isPending} = useContext(AppContext)
   return (
     <div className="notice-main-container">
       {SongDB.map((item, index) => (
@@ -16,7 +18,7 @@ function Notice() {
             </audio>
           </div>
           <div className="notice-button">
-            <button> Approve </button>
+            <button onClick={ () => isPending()}> Approve </button>
             <button> Cancle </button>
           </div>
         </div>
