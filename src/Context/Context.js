@@ -6,6 +6,7 @@ export const AppContext = createContext();
 
 export const Contexts = ({ children }) => {
     const [pendingSongs, setPendingSongs] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
