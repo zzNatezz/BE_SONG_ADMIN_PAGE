@@ -4,7 +4,7 @@ import { AppContext } from "../../../../Context/Context";
 
 
 function Notice() {
-  const { pendingSongs,} = useContext(AppContext)
+  const { pendingSongs,updateApproved,updateRejected} = useContext(AppContext)
   return (
     <div className="notice-main-container">
       {pendingSongs.map((item, index) => (
@@ -18,8 +18,8 @@ function Notice() {
             </audio>
           </div>
           <div className="notice-button">
-            <button> Approve </button>
-            <button> Cancle </button>
+            <button onClick={() => updateApproved(item._id)}> Approve </button>
+            <button onClick={() => updateRejected(item._id)}> Reject </button>
           </div>
         </div>
       ))}
