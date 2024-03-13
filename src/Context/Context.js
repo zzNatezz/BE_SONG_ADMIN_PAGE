@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react"; 
+import {useNavigate} from 'react-router-dom'
 
 export const AppContext = createContext();
 
@@ -12,7 +13,6 @@ export const Contexts = ({ children }) => {
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(false)
   const [adminName , setAdminName] = useState('')
-  
 
   const updateApproved = (item) => {
     setLoading(true);
@@ -94,6 +94,9 @@ export const Contexts = ({ children }) => {
         alert(err.message)
     }
   }
+
+  //navigate if admin
+
   
  
   return (
@@ -108,7 +111,8 @@ export const Contexts = ({ children }) => {
         password,
         setPassword,
         handleSubmit,
-        adminName
+        adminName,
+        isLogin
       }}
     >
       {children}
