@@ -3,10 +3,12 @@ import './App.css';
 import Home from './layout/Home';
 import Welcome from './layout/Section/welcome/Welcome';
 import Notice from './layout/Section/welcome/Notification/Notice';
+import Login from './layout/login/Login';
 
 function App() {  
   return (
     <Routes>
+      <Route path='/login' element = {<Login />} />
       <Route path = "/" element = {<Home />} >
         <Route path='home' element = {<Welcome />} />
         <Route path='notice' element = {<Notice />} />
