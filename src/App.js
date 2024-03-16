@@ -11,10 +11,7 @@ function App() {
   const {isLogin} = useContext(AppContext)
   const navigate = useNavigate()
   useEffect(()=>{
-    if(isLogin=== true){
-      navigate ('/home')
-    }
-    else(navigate('/login'))
+    isLogin === true ? navigate('/home') : navigate('/login')
   },[isLogin])
 
   return (

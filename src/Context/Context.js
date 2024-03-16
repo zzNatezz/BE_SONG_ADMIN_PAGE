@@ -1,27 +1,17 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react"; 
-import {useNavigate} from 'react-router-dom'
 
 export const AppContext = createContext();
 
 export const Contexts = ({ children }) => {
+  const getSttLocal = JSON.parse(localStorage.getItem(`isLogin`));
+  const localuserName = JSON.parse(localStorage.getItem('username'));
   const [pendingSongs, setPendingSongs] = useState([]); //<-- call pending son
   const [loading, setLoading] = useState(false); //status loading
-  const [approved, setApproved] = useState([]); //aproved song
-  const [rejected, setRejected] = useState([]); //rejected song
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(false)
-  const [adminName , setAdminName] = useState('')
-
-  const updateApproved = (item) => {
-    setLoading(true);
-    setApproved(item);
-  };
-  const updateRejected = (item) => {
-    setLoading(true);
-    setRejected(item);
-  };
+  const [isLogin, setIsLogin] = useState(getSttLocal)
+  const [adminName , setAdminName] = useState(localuserName);
 
   //call pending song
   useEffect(() => {
@@ -39,72 +29,57 @@ export const Contexts = ({ children }) => {
   }, [loading]);
 
   //aproved status
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        await axios.put(
-          `https://be-song.vercel.app/v1/songs/approved/${approved}`
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
+  const approvedSong = async(songId) =>{
+    try {
+      await axios.put(`https://be-song.vercel.app/v1/songs/approved/${songId}`).then(()=>setLoading(true))
+      alert('Thanh cong')
+      
+    } catch (error) {
+      console.log(error);
     }
-    if (loading) {
-      fetchData();
-    }
-  }, [loading]);
+  }
 
-  //reject status
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        await axios.put(
-          `https://be-song.vercel.app/v1/songs/rejected/${rejected}`
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
+  //reject status `https://be-song.vercel.app/v1/songs/rejected/${rejected}`
+  const rejectedSong = async(songId) =>{
+    try {
+      await axios.put(`https://be-song.vercel.app/v1/songs/rejected/${songId}`)
+      setLoading(true)
+      alert('Thanh cong')
+    } catch (error) {
+      console.log(error);
     }
-    if (loading) {
-      fetchData();
-    }
-  }, [loading]);
+  }
 
   // check password and username
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    //'https://be-song.vercel.app/v1/auth/login'
     try {
       const res = await axios.post('https://be-song.vercel.app/v1/auth/login',
       ({username , password})
-      );
+      ); console.log(res?.data?.username);
       if(res?.data?.admin){
+        localStorage.setItem('username',JSON.stringify(res?.data?.username || 'admin'))
+        localStorage.setItem('isLogin',JSON.stringify(true))
         setUserName('');
         setPassword('')
-        setIsLogin(true);
-        setAdminName(res?.data?.username);
+        setIsLogin(JSON.parse(localStorage.getItem('isLogin')));
+        setAdminName(JSON.parse(localStorage.getItem('username')));
         alert(`Dang nhap thanh cong`)
      }
       else throw new Error(`Chỉ có admin mới được quyền truy cập`)
     } catch (err) {
-        setIsLogin(false)
+        setIsLogin(localStorage.setItem('isLogin', JSON.stringify(false)))
         alert(err.message)
     }
   }
-
-  //navigate if admin
 
   
  
   return (
     <AppContext.Provider
       value={{
-        updateApproved,
         pendingSongs,
-        updateRejected,
         setLoading,
         username,
         setUserName,
@@ -112,7 +87,9 @@ export const Contexts = ({ children }) => {
         setPassword,
         handleSubmit,
         adminName,
-        isLogin
+        isLogin,
+        getSttLocal,
+        approvedSong, rejectedSong
       }}
     >
       {children}
