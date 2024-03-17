@@ -1,0 +1,19 @@
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+}
+.sidebar-container .sidebar-home a {
+  color: black;
+}
+.sidebar-container .sidebar-notice a {
+  color: black;
+}
+.sidebar-container .btn-logout {
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: #f5b759;
+  border-color: #f5b759;
+}/*# sourceMappingURL=SideBar.css.map */

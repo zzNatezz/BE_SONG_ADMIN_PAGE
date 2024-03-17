@@ -1,0 +1,16 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: auto;
+  width: 1080px;
+}
+.home-container .home-body {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+.home-container .home-body .home-section {
+  width: 680px;
+  margin: auto;
+}/*# sourceMappingURL=Home.css.map */

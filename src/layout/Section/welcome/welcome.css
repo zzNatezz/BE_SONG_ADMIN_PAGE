@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Lines&display=swap");
+.welcome-container {
+  font-size: 50px;
+}
+.welcome-container span {
+  font-family: "Rubik Lines", system-ui;
+  text-decoration: underline;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 60px;
+  color: rgb(0, 255, 170);
+  animation: flash linear 2.5s infinite;
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}/*# sourceMappingURL=welcome.css.map */

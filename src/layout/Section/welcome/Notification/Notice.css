@@ -1,0 +1,81 @@
+.notice-main-container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.notice-main-container .notice-container {
+  background-color: beige;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notice-main-container .notice-container .notice-content .notice-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.notice-main-container .notice-container .notice-content .notice-title-container .btn-edit-1 {
+  padding: 5px;
+  border-radius: 5px;
+  height: 30px;
+  border: 1px solid #f5b759;
+  background-color: #f5b759;
+  color: white;
+}
+.notice-main-container .notice-container .notice-content .notice-editable {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  padding-inline: 10px;
+}
+.notice-main-container .notice-container .notice-content .notice-layout-button {
+  display: flex;
+  justify-content: space-between;
+}
+.notice-main-container .notice-container .notice-content .notice-layout-button .btn-ok {
+  background-color: #00bf9a;
+  color: white;
+  border: 1px solid #00bf9a;
+}
+.notice-main-container .notice-container .notice-content .notice-layout-button .btn-cancle {
+  background-color: #FA5252;
+  color: white;
+  border: 1px solid #FA5252;
+}
+.notice-main-container .notice-container .notice-content .hide-button {
+  display: none;
+}
+.notice-main-container .notice-container .notice-content .notice-author-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.notice-main-container .notice-container .notice-content .notice-author-container .btn-edit-02 {
+  padding: 5px;
+  border-radius: 5px;
+  height: 30px;
+  border: 1px solid #f5b759;
+  background-color: #f5b759;
+  color: white;
+}
+.notice-main-container .notice-container .notice-content .notice-img {
+  margin-top: 20px;
+  width: 200px;
+  height: 100px;
+}
+.notice-main-container .notice-container .notice-content audio {
+  margin-top: 20px;
+  width: 250px;
+}
+.notice-main-container .notice-container .notice-button {
+  display: flex;
+  justify-content: space-between;
+}
+.notice-main-container .notice-container .notice-button button {
+  width: 100px;
+  border-radius: 20px;
+  border: 1px solid black;
+}/*# sourceMappingURL=Notice.css.map */

@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Honk&family=Playfair+Display:wght@700&display=swap");
+.login-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1080px;
+  margin: auto;
+  height: 100px;
+  gap: 10px;
+}
+.login-container .login-top {
+  width: 1080px;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 20px;
+  align-items: center;
+}
+.login-container .login-top img {
+  height: 100px;
+}
+.login-container .login-top h1 {
+  font-family: "Honk", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "MORF" 15, "SHLN" 50;
+  font-size: 4cap;
+}
+.login-container .login-sub {
+  background-color: aquamarine;
+  width: 1080px;
+  height: 50px;
+  color: aquamarine;
+}
+.login-container .login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.login-container .login-content .login-username {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.login-container .login-content .login-password {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.login-container .login-content input {
+  width: 500px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid bisque;
+  padding: 10px;
+}
+.login-container .login-content img {
+  width: 22px;
+  height: 22px;
+}
+.login-container .login-content .login-submitbtn .submit-btn {
+  margin-top: 10px;
+  width: 530px;
+  border-radius: 10px;
+  border: 1px solid bisque;
+  height: 30px;
+  background-color: blanchedalmond;
+  color: chocolate;
+}/*# sourceMappingURL=Login.css.map */

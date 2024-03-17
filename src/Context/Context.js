@@ -15,7 +15,7 @@ export const Contexts = ({ children }) => {
   const [adminName , setAdminName] = useState(localuserName);
   const [edit , setEdit] = useState(false) //<-- set editable
   const [editTask, setEditTask] = useState('')
-  // const previousValue = usePrevious()
+  const previousValue = usePrevious(editTask)
 
   //call pending song
   useEffect(() => {
@@ -88,15 +88,26 @@ export const Contexts = ({ children }) => {
 
   //handle onInpt
   const handleInput = (i,e) => {
-    pendingSongs[i].title = e.target.value;
-    setEditTask(pendingSongs[i].title)
+     pendingSongs[i].title = e.target.value;
+      setEditTask(pendingSongs[i].title)
   }
 
 
   //handle btn ok
+  // const handling_oke_button = (i) => {
+  //   editTask === "" ? setEdit(false) : pendingSongs[i].title = editTask && setEdit(false)
+  // }
   const handling_oke_button = (i) => {
-    pendingSongs[i].title = editTask
-    setEdit(false)
+    if(editTask === ""){
+
+      alert(`Title can't be empty`)
+      console.log(previousValue);
+      setEdit(false)
+    }
+    else{
+      pendingSongs[i].title = editTask ;
+      setEdit(false)
+    }
   }
 
   

@@ -19,7 +19,6 @@ function Notice() {
                     edit === false ? "notice-title" : "notice-editable"
                   }
                   onInput={e => handleInput(index,e)}
-                  
                 >
                   {item.title}
                 </span>
@@ -34,9 +33,10 @@ function Notice() {
               }
             >
               <button
-               onClick={(e) => handling_oke_button(index,e)}
+               onClick={() => handling_oke_button(index)}
                className="btn-ok"> OK </button>
-              <button onClick={() => setEdit(false)} className="btn-cancle">
+              <button 
+              onClick={() => setEdit(false)} className="btn-cancle">
                 Cancle
               </button>
             </div>
