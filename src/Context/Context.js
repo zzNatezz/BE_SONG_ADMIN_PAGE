@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react"; 
+import { usePrevious } from "@uidotdev/usehooks";
 
 export const AppContext = createContext();
 
@@ -12,6 +13,9 @@ export const Contexts = ({ children }) => {
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(getSttLocal)
   const [adminName , setAdminName] = useState(localuserName);
+  const [edit , setEdit] = useState(false) //<-- set editable
+  const [editTask, setEditTask] = useState('')
+  // const previousValue = usePrevious()
 
   //call pending song
   useEffect(() => {
@@ -39,7 +43,7 @@ export const Contexts = ({ children }) => {
     }
   }
 
-  //reject status `https://be-song.vercel.app/v1/songs/rejected/${rejected}`
+  //reject status
   const rejectedSong = async(songId) =>{
     try {
       await axios.put(`https://be-song.vercel.app/v1/songs/rejected/${songId}`)
@@ -82,6 +86,19 @@ export const Contexts = ({ children }) => {
     
   }
 
+  //handle onInpt
+  const handleInput = (i,e) => {
+    pendingSongs[i].title = e.target.value;
+    setEditTask(pendingSongs[i].title)
+  }
+
+
+  //handle btn ok
+  const handling_oke_button = (i) => {
+    pendingSongs[i].title = editTask
+    setEdit(false)
+  }
+
   
  
   return (
@@ -98,7 +115,10 @@ export const Contexts = ({ children }) => {
         isLogin,
         getSttLocal,
         approvedSong, rejectedSong,
-        handleLogout
+        handleLogout,
+        edit, setEdit,
+        handling_oke_button,
+        editTask, setEditTask,handleInput
       }}
     >
       {children}

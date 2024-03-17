@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
   .notice-container {
     background-color: beige;
     padding: 20px;
@@ -10,23 +11,87 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     .notice-content {
+      .notice-title-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap:20px;
+
+        .btn-edit-1 {
+          padding: 5px;
+          border-radius: 5px;
+          height: 30px;
+          border: 1px solid #f5b759;
+          background-color: #f5b759;
+          color: white;
+        }
+      };
+      .notice-editable{
+        background-color: #e9ecef;
+        border-radius: 10px;
+        padding-inline : 10px;
+      }
+
+      .notice-layout-button {
+
+        display: flex;
+        justify-content: space-between;
+        .btn-ok {
+          background-color: #00bf9a;
+          color: white;
+          border: 1px solid #00bf9a;
+        }
+
+        .btn-cancle {
+          background-color: #FA5252;
+          color: white;
+          border: 1px solid #FA5252;
+        }
+      }
+
+      .hide-button{
+        display: none;
+      }
+
+      .notice-author-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .btn-edit-02 {
+          padding: 5px;
+          border-radius: 5px;
+          height: 30px;
+          border: 1px solid #f5b759;
+          background-color: #f5b759;
+          color: white;
+        }
+      }
+
       .notice-img {
+        margin-top: 20px;
         width: 200px;
         height: 100px;
       }
+
       audio {
+        margin-top: 20px;
         width: 250px;
       }
+
     }
-    .notice-button{
-        display: flex;
-        justify-content: space-between;
-        button{
-            width: 100px;
-            border-radius: 20px;
-            border: 1px solid black;
-        }
+
+    .notice-button {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        width: 100px;
+        border-radius: 20px;
+        border: 1px solid black;
+      }
     }
   }
 }
