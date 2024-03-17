@@ -74,6 +74,14 @@ export const Contexts = ({ children }) => {
     }
   }
 
+  //Logout
+  const handleLogout = () =>{
+     localStorage.setItem('username', JSON.stringify(''))
+     localStorage.setItem('isLogin', false)
+     setIsLogin(false)
+    
+  }
+
   
  
   return (
@@ -89,7 +97,8 @@ export const Contexts = ({ children }) => {
         adminName,
         isLogin,
         getSttLocal,
-        approvedSong, rejectedSong
+        approvedSong, rejectedSong,
+        handleLogout
       }}
     >
       {children}

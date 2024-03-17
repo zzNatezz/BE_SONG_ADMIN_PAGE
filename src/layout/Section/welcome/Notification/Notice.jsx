@@ -10,7 +10,7 @@ function Notice() {
       {pendingSongs.map((item, index) => (
         <div className="notice-container" key={index}>
           <div className="notice-content">
-            <h2 className="notice-title">Song : {item.title}</h2>
+            <h2 contentEditable = "true" className="notice-title">Song : {item.title}</h2>
             <h3 className="notice-author">Artist : {item.author}</h3>
             <img className="notice-img" src={item.image.url} alt="img" />
             <audio className="notice-audio" controls>
