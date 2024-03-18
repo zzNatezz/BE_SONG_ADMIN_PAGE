@@ -3,8 +3,17 @@ import "./Notice.scss";
 import { AppContext } from "../../../../Context/Context";
 
 function Notice() {
-  const { pendingSongs, approvedSong, rejectedSong, edit, setEdit, handling_oke_button, handleInput} =
-    useContext(AppContext);
+  const {
+    pendingSongs,
+    approvedSong,
+    rejectedSong,
+    edit,
+    setEdit,
+    btn_ok_title ,
+    handleInput,
+    editTask,
+    btn_cancle_title,
+  } = useContext(AppContext);
   return (
     <div className="notice-main-container">
       {pendingSongs.map((item, index) => (
@@ -12,19 +21,18 @@ function Notice() {
           <div className="notice-content">
             <div className="notice-title-container">
               <h2 className="notice-title">
-                Song :
-                <span
-                  contentEditable={edit === false ? false : true}
-                  className={
-                    edit === false ? "notice-title" : "notice-editable"
-                  }
-                  onInput={e => handleInput(index,e)}
-                >
-                  {item.title}
-                </span>
+                Song : {
+                  edit === false ?
+                  <span className="notice-title">{item.title}</span> 
+                  :
+                  <input
+                  className="notice-title-input" 
+                  onChange={(e) => handleInput(e)}
+                  value={editTask} />
+                }
               </h2>
               <button onClick={() => setEdit(true)} className="btn-edit-1">
-                  Edit
+                Edit
               </button>
             </div>
             <div
@@ -33,10 +41,15 @@ function Notice() {
               }
             >
               <button
-               onClick={() => handling_oke_button(index)}
-               className="btn-ok"> OK </button>
-              <button 
-              onClick={() => setEdit(false)} className="btn-cancle">
+                onClick={() => btn_ok_title (index, item.title)}
+                className="btn-ok"
+              >
+                OK
+              </button>
+              <button
+                onClick={() => btn_cancle_title(index)}
+                className="btn-cancle"
+              >
                 Cancle
               </button>
             </div>

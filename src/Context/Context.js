@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react"; 
-import { usePrevious } from "@uidotdev/usehooks";
 
 export const AppContext = createContext();
 
@@ -9,13 +8,14 @@ export const Contexts = ({ children }) => {
   const localuserName = JSON.parse(localStorage.getItem('username'));
   const [pendingSongs, setPendingSongs] = useState([]); //<-- call pending son
   const [loading, setLoading] = useState(false); //status loading
+
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(getSttLocal)
   const [adminName , setAdminName] = useState(localuserName);
-  const [edit , setEdit] = useState(false) //<-- set editable
-  const [editTask, setEditTask] = useState('')
-  const previousValue = usePrevious(editTask)
+
+  const [edit , setEdit] = useState(false) //<-- set editable cho title
+  const [editTask, setEditTask] = useState("") ; //<-- set editTask cho title
 
   //call pending song
   useEffect(() => {
@@ -61,7 +61,7 @@ export const Contexts = ({ children }) => {
     try {
       const res = await axios.post('https://be-song.vercel.app/v1/auth/login',
       ({username , password})
-      ); console.log(res?.data?.username);
+      );
       if(res?.data?.admin){
         localStorage.setItem('username',JSON.stringify(res?.data?.username || 'admin'))
         localStorage.setItem('isLogin',JSON.stringify(true))
@@ -86,30 +86,37 @@ export const Contexts = ({ children }) => {
     
   }
 
-  //handle onInpt
-  const handleInput = (i,e) => {
-     pendingSongs[i].title = e.target.value;
-      setEditTask(pendingSongs[i].title)
+  //handle onInpt <-- handle input cho title
+  const handleInput = (e) => {
+    const currentName = e.target.value
+    setEditTask(currentName)
   }
 
 
-  //handle btn ok
-  // const handling_oke_button = (i) => {
-  //   editTask === "" ? setEdit(false) : pendingSongs[i].title = editTask && setEdit(false)
-  // }
-  const handling_oke_button = (i) => {
+  //handle btn ok <-- oke cho title
+  const btn_ok_title = (i) => {
     if(editTask === ""){
-
-      alert(`Title can't be empty`)
-      console.log(previousValue);
+      alert(`Tên bài hát không thể để trống, vui lòng thử lại`)
+      setEditTask(pendingSongs[i].title); 
       setEdit(false)
     }
     else{
       pendingSongs[i].title = editTask ;
       setEdit(false)
     }
+
   }
 
+  //handle Cancle <-- Cancle cho title
+  const btn_cancle_title = (i) =>{
+    setEditTask(pendingSongs[i].title)
+    setEdit(false) 
+  }
+  
+  //const handle Edit single on map
+  const editEachElement = () => {
+ 
+  }
   
  
   return (
@@ -128,8 +135,9 @@ export const Contexts = ({ children }) => {
         approvedSong, rejectedSong,
         handleLogout,
         edit, setEdit,
-        handling_oke_button,
-        editTask, setEditTask,handleInput
+        btn_ok_title,
+        editTask, setEditTask, handleInput,
+        btn_cancle_title
       }}
     >
       {children}
