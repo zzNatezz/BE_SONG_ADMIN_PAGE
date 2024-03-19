@@ -8,11 +8,17 @@ function Notice() {
     approvedSong,
     rejectedSong,
     edit,
-    setEdit,
-    btn_ok_title ,
+    editAuthor,
+    btn_ok_title,
+    btn_ok_author,
     handleInput,
+    handleInputAuthor,
     editTask,
+    editTaskAuthor,
     btn_cancle_title,
+    btn_cancle_author,
+    editEachElement,
+    editEachElementAuthor,
   } = useContext(AppContext);
   return (
     <div className="notice-main-container">
@@ -21,29 +27,30 @@ function Notice() {
           <div className="notice-content">
             <div className="notice-title-container">
               <h2 className="notice-title">
-                Song : {
-                  edit === false ?
-                  <span className="notice-title">{item.title}</span> 
-                  :
+                Song :
+                {edit === index ? (
                   <input
-                  className="notice-title-input" 
-                  onChange={(e) => handleInput(e)}
-                  value={editTask} />
-                }
+                    className="notice-title-input"
+                    onChange={(e) => handleInput(e)}
+                    value={editTask}
+                  />
+                ) : (
+                  <span className="notice-title">{item.title}</span>
+                )}
               </h2>
-              <button onClick={() => setEdit(true)} className="btn-edit-1">
+              <button
+                onClick={() => editEachElement(index)}
+                className="btn-edit-1"
+              >
                 Edit
               </button>
             </div>
             <div
               className={
-                edit === false ? "hide-button" : "notice-layout-button"
+                edit === index ? "notice-layout-button" : "hide-button"
               }
             >
-              <button
-                onClick={() => btn_ok_title (index, item.title)}
-                className="btn-ok"
-              >
+              <button onClick={() => btn_ok_title(index)} className="btn-ok">
                 OK
               </button>
               <button
@@ -55,12 +62,45 @@ function Notice() {
             </div>
 
             <div className="notice-author-container">
-              <h3 className="notice-author">Artist : {item.author}</h3>
-              <button className="btn-edit-02"> Edit </button>
+              <h3 className="notice-author">
+                Artist :
+                {editAuthor === index ? (
+                  <input
+                    className="notice-author-input"
+                    onChange={(e) => handleInputAuthor(e)}
+                    value={editTaskAuthor}
+                  />
+                ) : (
+                  <span>{item.author}</span>
+                )}
+              </h3>
+              <button
+                onClick={() => editEachElementAuthor(index)}
+                className="btn-edit-02"
+              >
+                
+                Edit
+              </button>
             </div>
-            <div className="notice-layout-button">
-              <button className="btn-ok"> OK </button>
-              <button className="btn-cancle"> Cancle </button>
+            <div
+              className={
+                editAuthor === index ? "notice-layout-button" : "hide-button"
+              }
+            >
+              <button
+                onClick={() => btn_ok_author(index)}
+                className="btn-ok"
+              >
+                
+                OK
+              </button>
+              <button
+                onClick={() => btn_cancle_author(index)}
+                className="btn-cancle"
+              >
+                
+                Cancle
+              </button>
             </div>
 
             <img className="notice-img" src={item.image.url} alt="img" />

@@ -14,8 +14,11 @@ export const Contexts = ({ children }) => {
   const [isLogin, setIsLogin] = useState(getSttLocal)
   const [adminName , setAdminName] = useState(localuserName);
 
-  const [edit , setEdit] = useState(false) //<-- set editable cho title
+  const [edit , setEdit] = useState(null) //<-- set editable cho title
   const [editTask, setEditTask] = useState("") ; //<-- set editTask cho title
+
+  const [editAuthor, setEditAuthor] = useState(null);
+  const [editTaskAuthor, setEditTaskAuthor] = useState("")
 
   //call pending song
   useEffect(() => {
@@ -86,37 +89,61 @@ export const Contexts = ({ children }) => {
     
   }
 
-  //handle onInpt <-- handle input cho title
+  //handle onInpt <-- handle input cho title and author
   const handleInput = (e) => {
     const currentName = e.target.value
     setEditTask(currentName)
   }
+  const handleInputAuthor = (e) => {
+    const currentName = e.target.value
+    setEditTaskAuthor(currentName)
+  }
 
-
-  //handle btn ok <-- oke cho title
+  //handle btn ok <-- oke cho title and aiuthro
   const btn_ok_title = (i) => {
     if(editTask === ""){
       alert(`Tên bài hát không thể để trống, vui lòng thử lại`)
       setEditTask(pendingSongs[i].title); 
-      setEdit(false)
+      setEdit(null)
     }
     else{
       pendingSongs[i].title = editTask ;
-      setEdit(false)
+      setEdit(null)
+    }
+  }
+
+  const btn_ok_author = (i) => {
+    if(editTaskAuthor === ""){
+      alert(`Tên bài hát không thể để trống, vui lòng thử lại`)
+      setEditTaskAuthor(pendingSongs[i].author); 
+      setEditAuthor(null)
+    }
+    else{
+      pendingSongs[i].author = editTaskAuthor ;
+      setEditAuthor(null)
     }
 
   }
 
-  //handle Cancle <-- Cancle cho title
+  //handle Cancle <-- Cancle cho title and author
   const btn_cancle_title = (i) =>{
     setEditTask(pendingSongs[i].title)
-    setEdit(false) 
+    setEdit(null) 
+  }
+
+  const btn_cancle_author = (i) =>{
+    setEditTaskAuthor(pendingSongs[i].author)
+    setEditAuthor(null) 
   }
   
-  //const handle Edit single on map
-  const editEachElement = () => {
- 
-  }
+
+  //const handle Edit single on map for title and author
+  const editEachElement = (index) => {
+    setEdit(index)
+  }   
+  const editEachElementAuthor = (index) => {
+    setEditAuthor(index)
+  }   
   
  
   return (
@@ -137,10 +164,14 @@ export const Contexts = ({ children }) => {
         edit, setEdit,
         btn_ok_title,
         editTask, setEditTask, handleInput,
-        btn_cancle_title
+        btn_cancle_title,
+        editEachElement,
+        handleInputAuthor,btn_ok_author,
+        editEachElementAuthor,
+        btn_cancle_author,editAuthor,editTaskAuthor
       }}
     >
       {children}
     </AppContext.Provider>
-  );
+  );  
 };
