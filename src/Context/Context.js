@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react"; 
+import { jwtDecode} from 'jwt-decode'
 
 export const AppContext = createContext();
 
 export const Contexts = ({ children }) => {
-  const getSttLocal = JSON.parse(localStorage.getItem(`isLogin`));
+  const getSttLocal = JSON.parse(localStorage.getItem(`auth`));
   const localuserName = JSON.parse(localStorage.getItem('username'));
   const [pendingSongs, setPendingSongs] = useState([]); //<-- call pending son
   const [loading, setLoading] = useState(false); //status loading
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(getSttLocal)
+  const [isLogin, setIsLogin] = useState(false);
   const [adminName , setAdminName] = useState(localuserName);
 
   const [edit , setEdit] = useState(null) //<-- set editable cho title
@@ -60,33 +61,47 @@ export const Contexts = ({ children }) => {
   // check password and username
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    //'https://be-song.vercel.app/v1/auth/login'
     try {
       const res = await axios.post('https://be-song.vercel.app/v1/auth/login',
       ({username , password})
       );
-      if(res?.data?.admin){
-        localStorage.setItem('username',JSON.stringify(res?.data?.username || 'admin'))
-        localStorage.setItem('isLogin',JSON.stringify(true))
+      const decodeUser = jwtDecode(res?.data);
+      if(decodeUser){
+        localStorage.setItem('username',JSON.stringify(decodeUser?.username || 'admin'))
+        localStorage.setItem('auth',JSON.stringify(res?.data))
         setUserName('');
         setPassword('')
-        setIsLogin(JSON.parse(localStorage.getItem('isLogin')));
+        setIsLogin(true);
         setAdminName(JSON.parse(localStorage.getItem('username')));
         alert(`Dang nhap thanh cong`)
      }
-      else throw new Error(`Chỉ có admin mới được quyền truy cập`)
+      else throw new Error(`Get out of my page before I call 113 :)`)
     } catch (err) {
-        setIsLogin(localStorage.setItem('isLogin', JSON.stringify(false)))
+        setIsLogin(false)
         alert(err.message)
     }
   }
 
+  //handle refesh page
+  useEffect (() =>{
+    try {
+      const toke = JSON.parse(localStorage.getItem('auth'))
+      const decodeUser= jwtDecode(toke)
+      if(!decodeUser) {
+        setIsLogin(false);
+      }
+      else setIsLogin(true) 
+    } catch (error) {
+      console.log(error);
+      alert(`Don't try hack me page :)`)
+    }
+  }, [])
+
   //Logout
   const handleLogout = () =>{
      localStorage.setItem('username', JSON.stringify(''))
-     localStorage.setItem('isLogin', false)
+     localStorage.setItem('auth', JSON.stringify(''))
      setIsLogin(false)
-    
   }
 
   //handle onInpt <-- handle input cho title and author
