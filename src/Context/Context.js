@@ -56,14 +56,18 @@ export const Contexts = ({ children }) => {
   //reject status
   const rejectedSong = async (songId) => {
     setLoading(true)
-    // try {
-    //   await axios
-    //   .delete(`https://be-song.vercel.app/v1/songs/${songId}`)
-    //   .then(() => setLoading(false));
-    //   alert("Thanh cong");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    let isDelete = window.confirm('Bạn có thật mún xóa bài này không')
+    if(isDelete){
+        try {
+        await axios
+        .delete(`https://be-song.vercel.app/v1/songs/${songId}`)
+        .then(() => setLoading(false));
+        alert("Xóa Thanh cong");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    
   };
 
   // check password and username
@@ -181,12 +185,10 @@ export const Contexts = ({ children }) => {
 
   const btn_cancle_img = async (e, item) => {
     e.preventDefault()
-    let isDelete = window.confirm('Bạn có thật mún xóa bài này không')
-    isDelete === true ? console.log('Xóa thành công') : console.log('Mời bạn quyết định lại');;
-    // // const getSong = await axios.get("https://be-song.vercel.app/v1/songs/pending")
-    // // const originalPic = getSong.data.find(i => i._id === item._id)
-    // // item.image.url = originalPic.image.url
-    // // setButtonIMD(null)
+    const getSong = await axios.get("https://be-song.vercel.app/v1/songs/pending")
+    const originalPic = getSong.data.find(i => i._id === item._id)
+    item.image.url = originalPic.image.url
+    setButtonIMD(null)
   }
 
   //const handle Edit single on map for title and author 
