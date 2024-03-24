@@ -2,7 +2,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Home from './layout/Home';
 import Welcome from './layout/Section/welcome/Welcome';
-import Notice from './layout/Section/welcome/Notification/Notice';
+import Notice from './layout/Section/Notification/Notice'
 import Login from './layout/login/Login';
 import { useContext, useEffect } from 'react';
 import { AppContext } from './Context/Context';

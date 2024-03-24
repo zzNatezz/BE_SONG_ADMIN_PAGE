@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./Notice.scss";
-import { AppContext } from "../../../../Context/Context";
+import { AppContext } from "../../../Context/Context";
 
 function Notice() {
   const {
@@ -19,6 +19,11 @@ function Notice() {
     btn_cancle_author,
     editEachElement,
     editEachElementAuthor,
+    uploadImg,
+    imageSong,
+    pendingIMG,
+    btn_cancle_img,
+    setEditImg,
   } = useContext(AppContext);
   return (
     <div className="notice-main-container">
@@ -78,7 +83,6 @@ function Notice() {
                 onClick={() => editEachElementAuthor(index)}
                 className="btn-edit-02"
               >
-                
                 Edit
               </button>
             </div>
@@ -87,26 +91,69 @@ function Notice() {
                 editAuthor === index ? "notice-layout-button" : "hide-button"
               }
             >
-              <button
-                onClick={() => btn_ok_author(index)}
-                className="btn-ok"
-              >
-                
+              <button onClick={() => btn_ok_author(index)} className="btn-ok">
                 OK
               </button>
               <button
                 onClick={() => btn_cancle_author(index)}
                 className="btn-cancle"
               >
-                
                 Cancle
               </button>
             </div>
+            <div className="notice-img-container">
+              <label htmlFor="imagine" className="lable_img">
+                <div className="button-input">
+                  <input
+                    type="file"
+                    name="is Edit file ?"
+                    className="getFile"
+                    id={`getFile${index}`}
+                    onChange={(e) => uploadImg(e)}
+                  />
+                  <button
+                    className="setup-getfile"
+                    onClick={() => setEditImg(index)}
+                  >
+                    Click me to edit imagine
+                  </button>
+                  <div
+                    className={
+                      pendingIMG === index
+                        ? "notice-layout-button"
+                        : "hide-button"
+                    }
+                    style={{
+                      padding: "12px",
+                      width: "185px",
+                    }}
+                  >
+                    <button className="btn-ok">OK</button>
+                    <button
+                      onClick={() => btn_cancle_img(null)}
+                      className="btn-cancle"
+                    >
+                      Cancle
+                    </button>
+                  </div>
+                </div>
 
-            <img className="notice-img" src={item.image.url} alt="img" />
-            <audio className="notice-audio" controls>
-              <source src={item.song.url} type="audio/mpeg" />
-            </audio>
+                <img
+                  className="notice-img"
+                  src={
+                    imageSong !== undefined && pendingIMG === index
+                      ? imageSong.review
+                      : item.image.url
+                  }
+                  alt="picture is error"
+                />
+              </label>
+            </div>
+            <div>
+              <audio className="notice-audio" controls>
+                <source src={item.song.url} type="audio/mpeg" />
+              </audio>
+            </div>
           </div>
           <div className="notice-button">
             <button onClick={() => approvedSong(item._id)}> Approve </button>

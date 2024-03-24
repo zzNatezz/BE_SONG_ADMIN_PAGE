@@ -17,7 +17,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap:20px;
+        gap: 20px;
 
         .btn-edit-1 {
           padding: 5px;
@@ -27,15 +27,14 @@
           background-color: #f5b759;
           color: white;
         }
-      };
-      .notice-title-input{
+      }
+      .notice-title-input {
         background-color: whitesmoke;
         border-radius: 10px;
-        padding-inline : 10px;
+        padding-inline: 10px;
       }
 
       .notice-layout-button {
-
         display: flex;
         justify-content: space-between;
         .btn-ok {
@@ -45,13 +44,13 @@
         }
 
         .btn-cancle {
-          background-color: #FA5252;
+          background-color: #fa5252;
           color: white;
-          border: 1px solid #FA5252;
+          border: 1px solid #fa5252;
         }
       }
 
-      .hide-button{
+      .hide-button {
         display: none;
       }
 
@@ -69,23 +68,43 @@
           color: white;
         }
       }
-      .notice-author-input{
+      .notice-author-input {
         background-color: whitesmoke;
         border-radius: 10px;
-        padding-inline : 10px;
+        padding-inline: 10px;
       }
 
-      .notice-img {
-        margin-top: 20px;
-        width: 200px;
-        height: 100px;
+      .notice-img-container {
+        .lable_img {
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          justify-content: space-around;
+          .button-input {
+            .getFile {
+              display: none;
+            }
+            .setup-getfile {
+              padding: 5px;
+              border-radius: 5px;
+              height: 30px;
+              border: 1px solid #f5b759;
+              background-color: #f5b759;
+              color: white;
+            }
+          }
+          .notice-img {
+            margin-top: 20px;
+            width: 200px;
+            height: 100px;
+          }
+        }
       }
 
       audio {
         margin-top: 20px;
         width: 250px;
       }
-
     }
 
     .notice-button {

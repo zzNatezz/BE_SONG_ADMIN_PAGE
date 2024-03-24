@@ -21,6 +21,10 @@ export const Contexts = ({ children }) => {
   const [editAuthor, setEditAuthor] = useState(null);
   const [editTaskAuthor, setEditTaskAuthor] = useState("");
 
+  const [imageSong, setImageSong] = useState()
+  const [pendingIMG, setPendingIMG] = useState(null)
+ 
+
   //call pending song
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +121,7 @@ export const Contexts = ({ children }) => {
     setEditTaskAuthor(currentName);
   };
 
-  //handle btn ok <-- oke cho title and aiuthro
+  //handle btn ok <-- oke cho title and author and img
   const btn_ok_title = async (i) => {
     if (editTask === "") {
       alert(`Tên bài hát không thể để trống, vui lòng thử lại`);
@@ -148,7 +152,9 @@ export const Contexts = ({ children }) => {
     }
   };
 
-  //handle Cancle <-- Cancle cho title and author
+
+
+  //handle Cancle <-- Cancle cho title and author and image
   const btn_cancle_title = (i) => {
     setEditTask(pendingSongs[i].title);
     setEdit(null);
@@ -159,13 +165,45 @@ export const Contexts = ({ children }) => {
     setEditAuthor(null);
   };
 
-  //const handle Edit single on map for title and author
+  const btn_cancle_img = () => {
+    setPendingIMG(null)
+    setImageSong(undefined)
+  }
+
+  //const handle Edit single on map for title and author 
   const editEachElement = (index) => {
     setEdit(index);
   };
   const editEachElementAuthor = (index) => {
     setEditAuthor(index);
   };
+
+
+  useEffect(() =>{
+    return () =>{
+      imageSong && URL.revokeObjectURL(imageSong?.review)
+    }
+  },[imageSong])
+
+  const uploadImg = (e) =>{
+    const processingImg = e.target.files[0];
+    console.log(processingImg);
+    if(e.target.files.length !== 0){
+      processingImg.review = URL.createObjectURL(processingImg)
+    }
+    setImageSong(processingImg)
+  }
+
+  const setEditImg = (i) => {
+    document.getElementById(`getFile${i}`).click()
+    setPendingIMG(i)
+  }
+
+  // useEffect(()=>{
+  //   setPendingIMG(null)
+  // },[imageSong])
+
+
 
   return (
     <AppContext.Provider
@@ -176,7 +214,7 @@ export const Contexts = ({ children }) => {
         setUserName,
         password,
         setPassword,
-        handleSubmit,
+        handleSubmit,~
         adminName,
         isLogin,
         getSttLocal,
@@ -197,6 +235,8 @@ export const Contexts = ({ children }) => {
         btn_cancle_author,
         editAuthor,
         editTaskAuthor,
+        uploadImg,imageSong,
+        pendingIMG, btn_cancle_img,setEditImg
       }}
     >
       {children}
