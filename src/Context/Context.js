@@ -21,9 +21,8 @@ export const Contexts = ({ children }) => {
   const [editAuthor, setEditAuthor] = useState(null);
   const [editTaskAuthor, setEditTaskAuthor] = useState("");
 
-  const [imageSong, setImageSong] = useState()
+  const [buttonIMG, setButtonIMD] = useState(null)
   const [pendingIMG, setPendingIMG] = useState(null)
- 
 
   //call pending song
   useEffect(() => {
@@ -54,13 +53,13 @@ export const Contexts = ({ children }) => {
 
   //reject status
   const rejectedSong = async (songId) => {
-    try {
-      await axios.delete(`https://be-song.vercel.app/v1/songs/${songId}`);
-      setLoading(true);
-      alert("Thanh cong");
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await axios.delete(`https://be-song.vercel.app/v1/songs/${songId}`);
+    //   setLoading(true);
+    //   alert("Thanh cong");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   // check password and username
@@ -152,7 +151,14 @@ export const Contexts = ({ children }) => {
     }
   };
 
-
+  const btn_ok_img = async(item) =>{
+    try {
+      await axios.put(`https://be-song.vercel.app/v1/songs/img/${item._id}`).then(()=> setPendingIMG(null));
+      alert('Image has been uploaded')
+    } catch (error) {
+      console.log(error);
+    }
+   }
 
   //handle Cancle <-- Cancle cho title and author and image
   const btn_cancle_title = (i) => {
@@ -167,7 +173,6 @@ export const Contexts = ({ children }) => {
 
   const btn_cancle_img = () => {
     setPendingIMG(null)
-    setImageSong(undefined)
   }
 
   //const handle Edit single on map for title and author 
@@ -179,20 +184,23 @@ export const Contexts = ({ children }) => {
   };
 
 
-  useEffect(() =>{
-    return () =>{
-      imageSong && URL.revokeObjectURL(imageSong?.review)
-    }
-  },[imageSong])
 
-  const uploadImg = (e) =>{
-    const processingImg = e.target.files[0];
-    console.log(processingImg);
+  const uploadImg = (e, item, index) =>{
+    let processingImg = e.target.files[0];
+    let previousPicture = [...item.image.url]
     if(e.target.files.length !== 0){
       processingImg.review = URL.createObjectURL(processingImg)
     }
-    setImageSong(processingImg)
-  }
+    if(processingImg === undefined ){
+      setButtonIMD(null)
+      return processingImg = previousPicture.join('')
+    }
+    else{
+      setPendingIMG(null)
+      setButtonIMD(index)
+      return item.image.url = processingImg.review
+    } 
+    }
 
   const setEditImg = (i) => {
     document.getElementById(`getFile${i}`).click()
@@ -214,7 +222,7 @@ export const Contexts = ({ children }) => {
         setUserName,
         password,
         setPassword,
-        handleSubmit,~
+        handleSubmit,
         adminName,
         isLogin,
         getSttLocal,
@@ -235,8 +243,8 @@ export const Contexts = ({ children }) => {
         btn_cancle_author,
         editAuthor,
         editTaskAuthor,
-        uploadImg,imageSong,
-        pendingIMG, btn_cancle_img,setEditImg
+        uploadImg,buttonIMG,
+        pendingIMG, btn_cancle_img,setEditImg,btn_ok_img
       }}
     >
       {children}

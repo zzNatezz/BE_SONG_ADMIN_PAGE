@@ -20,10 +20,9 @@ function Notice() {
     editEachElement,
     editEachElementAuthor,
     uploadImg,
-    imageSong,
-    pendingIMG,
+    buttonIMG,
     btn_cancle_img,
-    setEditImg,
+    setEditImg,btn_ok_img
   } = useContext(AppContext);
   return (
     <div className="notice-main-container">
@@ -109,7 +108,7 @@ function Notice() {
                     name="is Edit file ?"
                     className="getFile"
                     id={`getFile${index}`}
-                    onChange={(e) => uploadImg(e)}
+                    onChange={(e) => uploadImg(e, item, index)}
                   />
                   <button
                     className="setup-getfile"
@@ -119,7 +118,7 @@ function Notice() {
                   </button>
                   <div
                     className={
-                      pendingIMG === index
+                      buttonIMG === index
                         ? "notice-layout-button"
                         : "hide-button"
                     }
@@ -128,22 +127,20 @@ function Notice() {
                       width: "185px",
                     }}
                   >
-                    <button className="btn-ok">OK</button>
                     <button
-                      onClick={() => btn_cancle_img(null)}
+                      onClick={()=> btn_ok_img(item)}
+                     className="btn-ok">OK</button>
+                    <button
+                      onClick={() => btn_cancle_img()}
                       className="btn-cancle"
                     >
                       Cancle
                     </button>
                   </div>
                 </div>
-
                 <img
                   className="notice-img"
-                  src={
-                    imageSong !== undefined && pendingIMG === index
-                      ? imageSong.review
-                      : item.image.url
+                  src={ item.image.url
                   }
                   alt="picture is error"
                 />
@@ -156,8 +153,15 @@ function Notice() {
             </div>
           </div>
           <div className="notice-button">
-            <button onClick={() => approvedSong(item._id)}> Approve </button>
-            <button onClick={() => rejectedSong(item._id)}> Reject </button>
+            <button 
+            onClick={() => approvedSong(item._id)}
+            > 
+            Approve 
+            </button>
+            <button 
+            onClick={() => rejectedSong(item._id)}> 
+            Reject
+            </button>
           </div>
         </div>
       ))}
