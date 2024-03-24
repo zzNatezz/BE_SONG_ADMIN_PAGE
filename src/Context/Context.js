@@ -22,9 +22,8 @@ export const Contexts = ({ children }) => {
   const [editTaskAuthor, setEditTaskAuthor] = useState("");
 
   const [buttonIMG, setButtonIMD] = useState(null)
-  const [pendingIMG, setPendingIMG] = useState(null)
 
-  const newForm = new FormData()
+  const [arrForm, setArrForm] = useState()
 
   //call pending song
   useEffect(() => {
@@ -43,10 +42,11 @@ export const Contexts = ({ children }) => {
 
   //aproved status
   const approvedSong = async (songId) => {
+    setLoading(true)
     try {
       await axios
         .put(`https://be-song.vercel.app/v1/songs/approved/${songId}`)
-        .then(() => setLoading(true));
+        .then(() => setLoading(false));
       alert("Thanh cong");
     } catch (error) {
       console.log(error);
@@ -55,9 +55,11 @@ export const Contexts = ({ children }) => {
 
   //reject status
   const rejectedSong = async (songId) => {
+    setLoading(true)
     // try {
-    //   await axios.delete(`https://be-song.vercel.app/v1/songs/${songId}`);
-    //   setLoading(true);
+    //   await axios
+    //   .delete(`https://be-song.vercel.app/v1/songs/${songId}`)
+    //   .then(() => setLoading(false));
     //   alert("Thanh cong");
     // } catch (error) {
     //   console.log(error);
@@ -153,14 +155,18 @@ export const Contexts = ({ children }) => {
     }
   };
 
-  const btn_ok_img = async(item) =>{
+  const btn_ok_img = async(item,e) =>{
+    e.preventDefault()
     try {
-      await axios.put(`https://be-song.vercel.app/v1/songs/img/${item._id}`,newForm).then(()=> setPendingIMG(null));
-      alert('Image has been uploaded')
+      await axios.put(`https://be-song.vercel.app/v1/songs/img/${item._id}`,arrForm)
+      .then(() => setButtonIMD(null)
+      );
     } catch (error) {
       console.log(error);
     }
    }
+
+
 
   //handle Cancle <-- Cancle cho title and author and image
   const btn_cancle_title = (i) => {
@@ -173,8 +179,14 @@ export const Contexts = ({ children }) => {
     setEditAuthor(null);
   };
 
-  const btn_cancle_img = () => {
-    setPendingIMG(null)
+  const btn_cancle_img = async (e, item) => {
+    e.preventDefault()
+    let isDelete = window.confirm('Bạn có thật mún xóa bài này không')
+    isDelete === true ? console.log('Xóa thành công') : console.log('Mời bạn quyết định lại');;
+    // // const getSong = await axios.get("https://be-song.vercel.app/v1/songs/pending")
+    // // const originalPic = getSong.data.find(i => i._id === item._id)
+    // // item.image.url = originalPic.image.url
+    // // setButtonIMD(null)
   }
 
   //const handle Edit single on map for title and author 
@@ -189,9 +201,11 @@ export const Contexts = ({ children }) => {
 
   const uploadImg = (e, item, index) =>{
     e.preventDefault();
+    const formData = new FormData();
     let processingImg = e.target.files[0];
-    let previousPicture = [...item.image.url];
-
+    let previousPicture = [...item.image.url]; 
+    formData.append('file', processingImg);
+    
     if(e.target.files.length !== 0){
       processingImg.review = URL.createObjectURL(processingImg)
     }
@@ -200,16 +214,17 @@ export const Contexts = ({ children }) => {
       return processingImg = previousPicture.join('')
     }
     else{
-      setPendingIMG(null)
       setButtonIMD(index)
-      newForm.append('file', processingImg)
+      setArrForm(formData)
       return item.image.url = processingImg.review
     } 
     }
 
-  const setEditImg = (i) => {
+
+
+  const setEditImg = (e,i) => {
+    e.preventDefault()
     document.getElementById(`getFile${i}`).click()
-    setPendingIMG(i)
   }
 
   // useEffect(()=>{
@@ -249,7 +264,7 @@ export const Contexts = ({ children }) => {
         editAuthor,
         editTaskAuthor,
         uploadImg,buttonIMG,
-        pendingIMG, btn_cancle_img,setEditImg,btn_ok_img
+       btn_cancle_img,setEditImg,btn_ok_img
       }}
     >
       {children}

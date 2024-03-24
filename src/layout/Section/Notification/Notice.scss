@@ -114,7 +114,16 @@
       button {
         width: 100px;
         border-radius: 20px;
-        border: 1px solid black;
+      }
+      .approved-button{
+        background-color: #00bf9a;
+          color: white;
+          border: 1px solid #00bf9a;
+      }
+      .rejected-button{
+        background-color: #fa5252;
+        color: white;
+        border: 1px solid #fa5252;
       }
     }
   }

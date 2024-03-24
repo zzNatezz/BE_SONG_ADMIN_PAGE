@@ -100,7 +100,9 @@ function Notice() {
                 Cancle
               </button>
             </div>
-            <div className="notice-img-container">
+            <form
+            onSubmit={(e)=>btn_ok_img(item,e)}
+            className="notice-img-container">
               <label htmlFor="imagine" className="lable_img">
                 <div className="button-input">
                   <input
@@ -112,7 +114,7 @@ function Notice() {
                   />
                   <button
                     className="setup-getfile"
-                    onClick={() => setEditImg(index)}
+                    onClick={(e) => setEditImg(e,index)}
                   >
                     Click me to edit imagine
                   </button>
@@ -128,10 +130,10 @@ function Notice() {
                     }}
                   >
                     <button
-                      onClick={()=> btn_ok_img(item)}
+                      type="submit"
                      className="btn-ok">OK</button>
                     <button
-                      onClick={() => btn_cancle_img()}
+                      onClick={(e) => btn_cancle_img(e, item)}
                       className="btn-cancle"
                     >
                       Cancle
@@ -145,7 +147,7 @@ function Notice() {
                   alt="picture is error"
                 />
               </label>
-            </div>
+            </form>
             <div>
               <audio className="notice-audio" controls>
                 <source src={item.song.url} type="audio/mpeg" />
@@ -153,12 +155,14 @@ function Notice() {
             </div>
           </div>
           <div className="notice-button">
-            <button 
+            <button
+            className="approved-button" 
             onClick={() => approvedSong(item._id)}
             > 
             Approve 
             </button>
             <button 
+            className="rejected-button"
             onClick={() => rejectedSong(item._id)}> 
             Reject
             </button>
