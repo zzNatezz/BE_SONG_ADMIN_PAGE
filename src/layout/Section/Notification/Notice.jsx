@@ -39,7 +39,7 @@ function Notice() {
                     value={editTask}
                   />
                 ) : (
-                  <span className="notice-title">{item.title}</span>
+                  <span className="notice-title"> {item.title}</span>
                 )}
               </h2>
               <button
@@ -75,7 +75,7 @@ function Notice() {
                     value={editTaskAuthor}
                   />
                 ) : (
-                  <span>{item.author}</span>
+                  <span> {item.author}</span>
                 )}
               </h3>
               <button
