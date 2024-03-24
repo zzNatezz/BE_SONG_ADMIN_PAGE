@@ -24,6 +24,8 @@ export const Contexts = ({ children }) => {
   const [buttonIMG, setButtonIMD] = useState(null)
   const [pendingIMG, setPendingIMG] = useState(null)
 
+  const newForm = new FormData()
+
   //call pending song
   useEffect(() => {
     const fetchData = async () => {
@@ -153,7 +155,7 @@ export const Contexts = ({ children }) => {
 
   const btn_ok_img = async(item) =>{
     try {
-      await axios.put(`https://be-song.vercel.app/v1/songs/img/${item._id}`).then(()=> setPendingIMG(null));
+      await axios.put(`https://be-song.vercel.app/v1/songs/img/${item._id}`,newForm).then(()=> setPendingIMG(null));
       alert('Image has been uploaded')
     } catch (error) {
       console.log(error);
@@ -186,8 +188,10 @@ export const Contexts = ({ children }) => {
 
 
   const uploadImg = (e, item, index) =>{
+    e.preventDefault();
     let processingImg = e.target.files[0];
-    let previousPicture = [...item.image.url]
+    let previousPicture = [...item.image.url];
+
     if(e.target.files.length !== 0){
       processingImg.review = URL.createObjectURL(processingImg)
     }
@@ -198,6 +202,7 @@ export const Contexts = ({ children }) => {
     else{
       setPendingIMG(null)
       setButtonIMD(index)
+      newForm.append('file', processingImg)
       return item.image.url = processingImg.review
     } 
     }
