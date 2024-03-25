@@ -90,7 +90,10 @@ export const Contexts = ({ children }) => {
         setIsLogin(true);
         setAdminName(JSON.parse(localStorage.getItem("username")));
         alert(`Dang nhap thanh cong`);
-      } else throw new Error(`Get out of my page before I call 113 :)`);
+      } else {
+        alert('Only accept admin')
+         window.location.assign(`https://www.stave.icu`)
+      };
     } catch (err) {
       setIsLogin(false);
       alert(err.message);
@@ -107,7 +110,7 @@ export const Contexts = ({ children }) => {
       } else setIsLogin(true);
     } catch (error) {
       console.log(error);
-      alert(`Don't try hack me page :)`);
+      alert(`Don't try to hack me page :)`);
     }
   }, []);
 

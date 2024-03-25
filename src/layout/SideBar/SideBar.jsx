@@ -14,6 +14,9 @@ function SideBar() {
       <div className="sidebar-notice" onClick={() =>setLoading(true)}>
         <Link to="/notice">Notice</Link>
       </div>
+      <div className="sidebar-management">
+        <Link to="/management">Management</Link>
+      </div>
       <button onClick={() => handleLogout()} className="btn-logout"> Log Out </button>
     </div>
   );

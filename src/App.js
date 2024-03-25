@@ -6,6 +6,7 @@ import Notice from './layout/Section/Notification/Notice'
 import Login from './layout/login/Login';
 import { useContext, useEffect } from 'react';
 import { AppContext } from './Context/Context';
+import Management from './layout/Section/Management/Management';
 
 function App() { 
   const {isLogin} = useContext(AppContext)
@@ -20,6 +21,7 @@ function App() {
       <Route path = "/" element = {<Home />} >
         <Route path='home' element = {<Welcome />} />
         <Route path='notice' element = {<Notice />} />
+        <Route path='management' element = {<Management />} />
       </Route>
     </Routes>
   );
