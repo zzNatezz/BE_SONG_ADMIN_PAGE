@@ -27,7 +27,7 @@ export const Contexts = ({ children }) => {
   const [arrForm, setArrForm] = useState()
 
   // changeStream in moongose http://localhost:3001
-      const socket = io('http://localhost:3001');
+      const socket = io('https://be-song.vercel.app');
       socket.on('reload' ,  data =>{
         setLoading(!loading)
 })
