@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import {io} from 'socket.io-client'
 
 export const AppContext = createContext();
 
@@ -24,6 +25,12 @@ export const Contexts = ({ children }) => {
   const [buttonIMG, setButtonIMD] = useState(null)
 
   const [arrForm, setArrForm] = useState()
+
+  // changeStream in moongose http://localhost:3001
+      const socket = io('http://localhost:3001');
+      socket.on('reload' ,  data =>{
+        setLoading(!loading)
+})
 
   //call pending song
   useEffect(() => {
@@ -232,10 +239,7 @@ export const Contexts = ({ children }) => {
     document.getElementById(`getFile${i}`).click()
   }
 
-  // useEffect(()=>{
-  //   setPendingIMG(null)
-  // },[imageSong])
-
+  
 
 
   return (
